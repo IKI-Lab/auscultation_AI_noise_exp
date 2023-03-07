@@ -297,7 +297,7 @@ class Info(QWidget):
         self.info_label = QLabel(self)
         #self.info_label.setFixedWidth(self.width())
         self.info_label.setStyleSheet("font-size: 24pt; color:black")
-        self.info_label.move(self.width()*0.4, self.height()*0.5)
+        self.info_label.move(int(self.width()*0.4), int(self.height()*0.5))
         self.info_label.setAlignment(Qt.AlignCenter)
 
 
@@ -332,7 +332,7 @@ class End(QWidget):
         self.weiterBtn.hide()
         self.info_label = QLabel("Vielen Dank für Ihre Teilname!", self)
         self.info_label.setStyleSheet("font-size: 50pt; color:black")
-        self.info_label.move(self.width() * 0.3, self.height() * 0.5)
+        self.info_label.move(int(self.width() * 0.3), int(self.height() * 0.5))
         self.info_label.setAlignment(Qt.AlignCenter)
 
 
@@ -340,6 +340,7 @@ class RepeatTest(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir,'forms/repeat_test.ui'), self)
+        self.textBrowser.setStyleSheet("color:black;")
 
 # change mouse position
 # media player alternative

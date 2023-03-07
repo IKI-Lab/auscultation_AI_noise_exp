@@ -106,9 +106,11 @@ class OpenPostTrial(QWidget):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir, 'forms/' + "open_post_trial.ui"), self)
         self.textBrowser.setStyleSheet("color:black;")
+        self.plainTextEdit.setStyleSheet("color:black;")
 
 class OpenQuestion(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir, 'forms/' + "open_end.ui"), self)
         self.textBrowser.setStyleSheet("color:black;")
+        self.plainTextEdit.setStyleSheet("color:black;")

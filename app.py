@@ -62,8 +62,8 @@ class MainWindow(QMainWindow):
         self.exp.key = key
         self.exp.group = self.exp.set_group(key)
         self.exp.trials_iter = self.exp.get_order()
-        self.stackedWidget.tmp = 9 + len(self.exp.trials_iter)  # refactor
-        for i in range(len(self.exp.trials_iter)):
+        self.stackedWidget.tmp = 9 + len(self.exp.trials_iter) - 3 # refactor
+        for i in range(len(self.exp.trials_iter ) -3 ):
             self.buildTrial(self.exp.trials.iloc[self.exp.trials_iter[i], :])
         self.init = True
 
