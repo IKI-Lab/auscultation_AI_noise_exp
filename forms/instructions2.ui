@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>900</height>
+    <height>762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,9 +63,9 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>280</y>
+      <y>270</y>
       <width>1231</width>
-      <height>281</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="html">
@@ -78,6 +78,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;Anschließend sollen Sie angeben, wie sicher Sie sich mit Ihrer Einschätzung sind.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;&lt;br /&gt;Im zweiten Schritt bekommen Sie zusätzlich zur Aufnahme noch Unterstützung durch ein System zur digitalen Auskultation, welches die Herztöne visualisiert und Ihnen zusätzliche Informationen gibt.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;&lt;br /&gt;Nach dem erneuten Hören mit der Systemunterstützung haben Sie die Möglichkeit, Ihre vorherige Entscheidung zu revidieren und es wird erneut Ihre Sicherheit abgefragt. Außerdem sollen Sie angeben, wie sehr Sie dem System vertrauen, ob die Auswertungshilfe des Systems für Sie nützlich war und wie schwer Sie die Aufgabe fanden.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;Im Folgenden erhalten Sie noch weitere Informationen über das System zur digitalen Auskultation. Lesen Sie diese bitte gründlich!&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>

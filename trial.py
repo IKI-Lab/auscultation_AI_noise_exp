@@ -29,6 +29,7 @@ class Trial(QStackedWidget):
         self.start = 0
         self.finish = 0
         self.vignette = Vignette()
+        print(self.trial[1])
         self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
 
         self.addWidget(self.vignette)
@@ -146,7 +147,7 @@ class Trial(QStackedWidget):
                         pred = "unauffällig"
                     else:
                         pred = "auffällig"
-                    values.append("Prediction: " + pred)
+                    values.append("Einschätzung des Systems: " + pred)
             values = "\n".join(values)
             self.info.info_label.setText(values)
             self.setCurrentIndex(self.current()+1)
@@ -264,7 +265,7 @@ class PlayAudio(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir,'forms/play_audio.ui'), self)
-        self.label.setStyleSheet("color:black;")
+        self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
         self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
@@ -282,7 +283,7 @@ class PlayVideo(QVideoWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir,'forms/play_audio.ui'), self)
-        self.label.setStyleSheet("color:black;")
+        self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
         self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
@@ -330,7 +331,7 @@ class End(QWidget):
         self.textBrowser.setHtml("")
         self.textBrowser.hide()
         self.weiterBtn.hide()
-        self.info_label = QLabel("Vielen Dank für Ihre Teilname!", self)
+        self.info_label = QLabel("Vielen Dank für Ihre Teilnahme!", self)
         self.info_label.setStyleSheet("font-size: 50pt; color:black")
         self.info_label.move(int(self.width() * 0.3), int(self.height() * 0.5))
         self.info_label.setAlignment(Qt.AlignCenter)
