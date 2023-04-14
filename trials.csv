@@ -1,9 +1,8 @@
 seq;vignette;Audio;Video;HR;IBI;AVG Sys;AVG Dia;Prediction;Date retrieved
-36327;Auskultation bei einem männlichen Jugendlichen an der Trikuspidalklappe,  4. ICR rechts;36327_TV_noise1.wav;36327_TV_noise1.mp4;78;767;290;477;0;5.10.2022
-40840;Auskultation bei einer weiblichen Jugendlichen an der Pulmonalklappe,  2. ICR links;40840_PV_enhanced.wav;40840_PV_enhanced.mp4;79;758;266;492;1;5.10.2022
-44514;Auskultation bei einem männlichen Jugendlichen an der Pulmonalklappe, 2. ICR links;44514_PV_original.wav;44514_PV_original.mp4;96;622;253;389;1;5.10.2022
-49630;Auskultation bei einem männlichen Jugendlichen an der Trikuspidalklappe, 4. ICR rechts;49630_TV_original.wav;49630_TV_original.mp4;78;760;272;488;1;5.10.2022
-49748;Auskultation bei einer weiblichen Jugendlichen an der Trikuspidalklappe, 4. ICR rechts;49748_TV_noise3.3.wav;49748_TV_noise3.3.mp4;75;799;308;493;1;5.10.2022
-50159;Auskultation bei einem männlichen Jugendlichen an der Mitralklappe, 3. ICR links;50159_MV_enhanced.wav;50159_MV_enhanced.mp4;78;770;303;468;0;5.10.2022
-
+36327;Auskultation bei einem männlichen Jugendlichen an der Trikuspidalklappe,<br> 4. ICR rechts;36327_TV_noise1.wav;36327_TV_noise1.mp4;78;767;290;477;0;5.10.2022
+40840;Auskultation bei einer weiblichen Jugendlichen an der Pulmonalklappe,<br> 2. ICR links;40840_PV_enhanced.wav;40840_PV_enhanced.mp4;79;758;266;492;1;5.10.2022
+44514;Auskultation bei einem männlichen Jugendlichen an der Pulmonalklappe,<br> 2. ICR links;44514_PV_original.wav;44514_PV_original.mp4;96;622;253;389;1;5.10.2022
+49630;Auskultation bei einem männlichen Jugendlichen an der Trikuspidalklappe,<br> 4. ICR rechts;49630_TV_original.wav;49630_TV_original.mp4;78;760;272;488;1;5.10.2022
+49748;Auskultation bei einer weiblichen Jugendlichen an der Trikuspidalklappe,<br> 4. ICR rechts;49748_TV_noise3.3.wav;49748_TV_noise3.3.mp4;75;799;308;493;1;5.10.2022
+50159;Auskultation bei einem männlichen Jugendlichen an der Mitralklappe, <br> 3. ICR links;50159_MV_enhanced.wav;50159_MV_enhanced.mp4;78;770;303;468;0;5.10.2022
 
