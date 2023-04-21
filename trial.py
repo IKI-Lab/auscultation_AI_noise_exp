@@ -107,9 +107,9 @@ class Trial(QStackedWidget):
         mixer.init()
         record = mixer.Sound(full_file_path)
         len_rec = int(record.get_length())
-        #mixer.Sound.play(record) #dev
-        #mixer.music.stop() #dev
-        #time.sleep(len_rec+2) #dev
+        mixer.Sound.play(record) #dev
+        mixer.music.stop() #dev
+        time.sleep(len_rec+2) #dev
         print(self.row)
         self.setCurrentIndex(self.current()+1)
         self.start = datetime.now()
