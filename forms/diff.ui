@@ -27,7 +27,7 @@
 </string>
    </property>
    <property name="text">
-    <string>Geben Sie bitte an, wie schwierig die Klassifikation für Sie war.</string>
+    <string>Geben Sie bitte an, wie schwierig die Aufgabe für Sie war.</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
