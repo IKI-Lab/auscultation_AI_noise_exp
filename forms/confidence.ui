@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>769</height>
+    <height>762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>440</x>
      <y>190</y>
-     <width>701</width>
+     <width>661</width>
      <height>101</height>
     </rect>
    </property>
@@ -27,7 +27,7 @@
 </string>
    </property>
    <property name="text">
-    <string>Wie sicher sind Sie sich in Hinblick auf den festgelegten Befund?</string>
+    <string>Wie sicher sind Sie sich in Hinblick auf die Klassifikation?</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">

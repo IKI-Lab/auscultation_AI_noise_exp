@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>762</height>
+    <width>1350</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>410</x>
      <y>200</y>
-     <width>621</width>
+     <width>641</width>
      <height>101</height>
     </rect>
    </property>
@@ -27,7 +27,7 @@
 </string>
    </property>
    <property name="text">
-    <string>Geben Sie bitte an, wie schwierig die Aufgabe für Sie war.</string>
+    <string>Geben Sie bitte an, wie schwierig die Klassifikation für Sie war.</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
