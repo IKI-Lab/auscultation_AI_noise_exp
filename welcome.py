@@ -1,8 +1,8 @@
 import os
 
-from PyQt5 import uic
-from PyQt5.QtCore import QSize
-from PyQt5.QtWidgets import QWidget, QDialog
+from PyQt6 import uic
+from PyQt6.QtCore import QSize
+from PyQt6.QtWidgets import QWidget, QDialog
 
 basedir = os.path.dirname(__file__)
 

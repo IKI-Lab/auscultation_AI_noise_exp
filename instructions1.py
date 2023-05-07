@@ -1,7 +1,7 @@
 import os
 
-from PyQt5 import uic
-from PyQt5.QtWidgets import QWidget
+from PyQt6 import uic
+from PyQt6.QtWidgets import QWidget
 
 basedir = os.path.dirname(__file__)
 

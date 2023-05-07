@@ -1,8 +1,8 @@
 import os
 import sys
-
-from PyQt5 import uic, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
+import PyQt6
+from PyQt6 import uic, QtWidgets
+from PyQt6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
 from datetime import date
 
 import PostTrial
@@ -52,7 +52,7 @@ class MainWindow(QMainWindow):
         self.get_key = KeyDialog()
         self.get_key.show()
         self.get_key.pushButton.clicked.connect(self.get_key.accept)
-        if self.get_key.exec_() == QtWidgets.QDialog.Accepted:
+        if self.get_key.exec():
             self.stackedWidget.setCurrentIndex(self.current() + 1)
         self.initExp()
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     app = QApplication([])
     window = MainWindow()
     window.showFullScreen()
-    app.exec_()
+    app.exec()
 
 
 

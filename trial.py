@@ -4,14 +4,14 @@ import time
 import pygame
 from moviepy.editor import *
 from datetime import date, datetime
-from PyQt5 import uic, QtTest
+from PyQt6 import uic, QtTest, QtCore
 import cv2
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QSize, QUrl, QTimer
-from PyQt5.QtGui import QIcon, QImage, QPixmap
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel
+from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QSize, QUrl, QTimer
+from PyQt6.QtGui import QIcon, QImage, QPixmap
+from PyQt6.QtMultimedia import QMediaPlayer
+from PyQt6.QtMultimediaWidgets import QVideoWidget
+from PyQt6.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel
 from PyQt5 import QtCore, QtWidgets
 
 import PostTrial
@@ -35,7 +35,6 @@ class Trial(QStackedWidget):
         self.start = 0
         self.finish = 0
         self.vignette = Vignette()
-        print(self.trial[1])
         self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
 
         self.addWidget(self.vignette)
@@ -130,9 +129,8 @@ class Trial(QStackedWidget):
     def play_video(self):
         video = self.trial[3]
         full_file_path = os.path.join(stimuli, "video", video)
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        print(full_file_path)
-        self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
+        self.mediaPlayer = QMediaPlayer()
+        self.mediaPlayer.setSource(QUrl.fromLocalFile(full_file_path))
         self.mediaPlayer.setVideoOutput(self.video)
         # Play
         self.mediaPlayer.play()
@@ -324,7 +322,7 @@ class Info(QWidget):
         #self.info_label.setFixedWidth(self.width())
         self.info_label.setStyleSheet("font-size: 24pt; color:black")
         self.info_label.move(int(self.width()*0.4), int(self.height()*0.5))
-        self.info_label.setAlignment(Qt.AlignCenter)
+        self.info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 
 class Confidence(QWidget):
@@ -359,7 +357,7 @@ class End(QWidget):
         self.info_label = QLabel("Vielen Dank für Ihre Teilnahme!", self)
         self.info_label.setStyleSheet("font-size: 50pt; color:black")
         self.info_label.move(int(self.width() * 0.3), int(self.height() * 0.5))
-        self.info_label.setAlignment(Qt.AlignCenter)
+        self.info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 
 class RepeatTest(QWidget):

@@ -1,9 +1,9 @@
 import os
 from datetime import date
 
-from PyQt5 import uic
-from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QWidget, QStackedWidget
+from PyQt6 import uic
+from PyQt6.QtMultimedia import QMediaPlayer
+from PyQt6.QtWidgets import QWidget, QStackedWidget
 
 from trial import Vignette, PlayVideo, Info
 
