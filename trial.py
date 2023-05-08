@@ -271,7 +271,6 @@ class PlayAudio(QWidget):
         uic.loadUi(os.path.join(basedir,'forms/play_audio.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
-        self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
 
 class Classification(QWidget):
@@ -289,7 +288,6 @@ class PlayVideo(QVideoWidget):
         uic.loadUi(os.path.join(basedir,'forms/play_video.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
-        self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
 
 class Info(QWidget):
