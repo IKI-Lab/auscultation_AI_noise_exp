@@ -141,8 +141,8 @@ class Trial(QStackedWidget):
     def display_info(self, status):
         if status == QMediaPlayer.EndOfMedia:
             trial = self.trial
-            values = ["HR: " + str(trial[4]), "AVG Sys: " + str(trial[6]),
-                      "AVG Dia: " + str(trial[7])]
+            values = ["HR: " + str(trial[4]) + '\n', "AVG Sys: " + str(trial[6])+ '\n',
+                      "AVG Dia: " + str(trial[7])+ '\n']
 
             print(self.exp.get_group())
             if self.exp.get_group() == "CAA":
@@ -153,6 +153,7 @@ class Trial(QStackedWidget):
                     values.append("Einschätzung des Systems: " + pred)
             values = "\n".join(values)
             self.info.info_label.setText(values)
+            self.info.info_label.setAlignment(Qt.AlignCenter)
             self.setCurrentIndex(self.current() + 1)
 
     def add_scale(self, obj):

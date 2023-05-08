@@ -64,9 +64,12 @@
      <rect>
       <x>160</x>
       <y>100</y>
-      <width>1141</width>
+      <width>811</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
