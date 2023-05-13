@@ -5,7 +5,6 @@ import pygame
 from moviepy.editor import *
 from datetime import date, datetime
 from PyQt5 import uic, QtTest
-import cv2
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QSize, QUrl, QTimer
 from PyQt5.QtGui import QIcon, QImage, QPixmap
@@ -108,9 +107,9 @@ class Trial(QStackedWidget):
         mixer.init()
         record = mixer.Sound(full_file_path)
         len_rec = int(record.get_length())
-        #mixer.Sound.play(record) #dev
-        #mixer.music.stop() #dev
-        #time.sleep(len_rec+2) #dev
+        mixer.Sound.play(record) #dev
+        mixer.music.stop() #dev
+        time.sleep(len_rec+2) #dev
         print(self.row)
         self.setCurrentIndex(self.current()+1)
         self.start = datetime.now()
@@ -136,35 +135,14 @@ class Trial(QStackedWidget):
         self.mediaPlayer.setVideoOutput(self.video)
         # Play
         self.mediaPlayer.play()
-        #self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
-        self.display_info(QMediaPlayer.EndOfMedia) # for dev mode
-    """
+        self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
+        #self.display_info(QMediaPlayer.EndOfMedia) # for dev mode
 
-    def play_video(self):
-        video = self.trial[3]
-        full_file_path = os.path.join(stimuli, "video", video)
-        self.cap = cv2.VideoCapture(full_file_path)
-        fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-        self.timer = QTimer()
-        millisecs = int(1000.0 / fps)
-        self.timer.setTimerType(Qt.PreciseTimer)
-        self.timer.timeout.connect(self.nextFrameSlot)
-        self.timer.start(millisecs)
-
-    def nextFrameSlot(self):
-        ret, frame = self.cap.read()
-        if ret == True:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            img = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
-            pix = QPixmap.fromImage(img)
-            pix = pix.scaled(self.video.width(), self.video.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self.video.setPixmap(pix)
-    """
     def display_info(self, status):
         if status == QMediaPlayer.EndOfMedia:
             trial = self.trial
-            values = ["HR: " + str(trial[4]), "AVG Sys: " + str(trial[6]),
-                      "AVG Dia: " + str(trial[7])]
+            values = ["HR: " + str(trial[4]) + '\n', "AVG Sys: " + str(trial[6])+ '\n',
+                      "AVG Dia: " + str(trial[7])+ '\n']
 
             print(self.exp.get_group())
             if self.exp.get_group() == "CAA":
@@ -175,6 +153,7 @@ class Trial(QStackedWidget):
                     values.append("Einschätzung des Systems: " + pred)
             values = "\n".join(values)
             self.info.info_label.setText(values)
+            self.info.info_label.setAlignment(Qt.AlignCenter)
             self.setCurrentIndex(self.current() + 1)
 
     def add_scale(self, obj):
@@ -292,7 +271,6 @@ class PlayAudio(QWidget):
         uic.loadUi(os.path.join(basedir,'forms/play_audio.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
-        self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
 
 class Classification(QWidget):
@@ -307,10 +285,9 @@ class Classification(QWidget):
 class PlayVideo(QVideoWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi(os.path.join(basedir,'forms/play_audio.ui'), self)
+        uic.loadUi(os.path.join(basedir,'forms/play_video.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
-        self.pushButton.setIcon(QIcon("forms/play.png"))
         self.pushButton.setIconSize(QSize(50, 50))
 
 class Info(QWidget):
