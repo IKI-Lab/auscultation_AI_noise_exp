@@ -1,7 +1,7 @@
 import os
 import sys
 
-from PyQt5 import uic, QtWidgets
+from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
 from datetime import date
 
@@ -30,6 +30,8 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(self.instruct)
         self.instruct2 = Instructions1(mode="2")
         self.stackedWidget.addWidget(self.instruct2)
+        self.instruct3 = Instructions1(mode="3")
+        self.stackedWidget.addWidget(self.instruct3)
         self.instruct_group = GroupInstructions()
         self.stackedWidget.addWidget(self.instruct_group)
         self.test_start = TestStart()
@@ -42,7 +44,8 @@ class MainWindow(QMainWindow):
         self.start.pushButton_2.clicked.connect(self.openDialog)
         self.welcome.weiterBtn.clicked.connect(self.next)
         self.instruct.weiterBtn.clicked.connect(self.next)
-        self.instruct2.weiterBtn.clicked.connect(self.display_instruct_group)
+        self.instruct2.weiterBtn.clicked.connect(self.next)
+        self.instruct3.weiterBtn.clicked.connect(self.display_instruct_group)
         self.instruct_group.weiterBtn.clicked.connect(self.next)
         self.postexample.weiterBtn.clicked.connect(self.next)
         self.test_start.weiterBtn.clicked.connect(self.next)
@@ -100,6 +103,7 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == '__main__':
+    print(QtCore.Qt.Key_Space)
     app = QApplication([])
     window = MainWindow()
     window.showFullScreen()

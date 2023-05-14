@@ -2,10 +2,11 @@ import os
 from datetime import date
 
 from PyQt5 import uic
-from PyQt5.QtMultimedia import QMediaPlayer
+from PyQt5.QtCore import QUrl
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QWidget, QStackedWidget
 
-from trial import Vignette, PlayVideo, Info
+from trial import Trial, Vignette, PlayVideo, Info
 
 basedir = os.path.dirname(__file__)
 stimuli = os.path.join(basedir, "stimuli")
@@ -45,13 +46,12 @@ class PostTrial(QStackedWidget):
             video = self.trial[3]
             full_file_path = os.path.join(stimuli, "video", video)
             self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-            print(full_file_path)
-            # self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
-            # self.mediaPlayer.setVideoOutput(self.video)
+            self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
+            self.mediaPlayer.setVideoOutput(self.video)
             # Play
-            # self.mediaPlayer.play()
-            # self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
-            self.display_info(QMediaPlayer.EndOfMedia)  # for dev mode
+            self.mediaPlayer.play()
+            self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
+            #self.display_info(QMediaPlayer.EndOfMedia)  # for dev mode
 
     def display_info(self, status):
             if status == QMediaPlayer.EndOfMedia:
@@ -67,7 +67,7 @@ class PostTrial(QStackedWidget):
                         pred = "unauffällig"
                     else:
                         pred = "auffällig"
-                    values.append("Prediction: " + pred)
+                    values.append("Einschätzung des Systems: " + pred)
                 values = "\n".join(values)
                 self.info.info_label.setText(values)
                 self.setCurrentIndex(self.current() + 1)

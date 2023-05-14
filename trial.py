@@ -92,7 +92,7 @@ class Trial(QStackedWidget):
             self.repeat = RepeatTest()
             self.addWidget(self.repeat)
             self.repeat.again.clicked.connect(self.again)
-            self.repeat.start.clicked.connect(lambda: self.widget.setCurrentIndex(self.widget.currentIndex()+1))
+            self.repeat.start.clicked.connect(self.next)
 
 
 
@@ -101,15 +101,14 @@ class Trial(QStackedWidget):
         self.setCurrentIndex(self.current()+1)
 
     def play_sound(self):
-        print("hi")
         audio = self.trial[2]
         full_file_path = os.path.join(stimuli, "audio" ,audio)
         mixer.init()
         record = mixer.Sound(full_file_path)
         len_rec = int(record.get_length())
-        mixer.Sound.play(record) #dev
-        mixer.music.stop() #dev
-        time.sleep(len_rec+2) #dev
+        #mixer.Sound.play(record) #dev
+        #mixer.music.stop() #dev
+        #time.sleep(len_rec+2) #dev
         print(self.row)
         self.setCurrentIndex(self.current()+1)
         self.start = datetime.now()
@@ -134,9 +133,9 @@ class Trial(QStackedWidget):
         self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
         self.mediaPlayer.setVideoOutput(self.video)
         # Play
-        self.mediaPlayer.play()
-        self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
-        #self.display_info(QMediaPlayer.EndOfMedia) # for dev mode
+        #self.mediaPlayer.play()
+        #self.mediaPlayer.mediaStatusChanged.connect(self.display_info)
+        self.display_info(QMediaPlayer.EndOfMedia) # for dev mode
 
     def display_info(self, status):
         if status == QMediaPlayer.EndOfMedia:
@@ -185,7 +184,7 @@ class Trial(QStackedWidget):
             if self.widget.tmp == self.widget.currentIndex():
                 self.build_post_trial(self.exp)
             else:
-                self.widget.setCurrentIndex(self.widget.currentIndex()+1)
+                self.next()
 
     def build_post_trial(self, exp):
         trial = []
@@ -211,6 +210,8 @@ class Trial(QStackedWidget):
                 case = [1]
         print(len(trial))
         if len(trial) != 0:
+            self.widget.wait = Wait()
+            self.widget.addWidget(self.widget.wait)
             for t, c in zip(trial, case):
                 self.widget.posttrialStacked = PostTrial.PostTrial(exp, c, t, self.widget)
                 self.widget.addWidget(self.widget.posttrialStacked)
@@ -218,12 +219,13 @@ class Trial(QStackedWidget):
         self.widget.addWidget(self.widget.open_end)
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
+        self.widget.wait.pushButton.clicked.connect(self.next)
         self.widget.open_end.weiterBtn.clicked.connect(self.end)
-        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+        self.next()
 
 
     def end(self):
-        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+        self.next()
         openq = self.widget.open_end.plainTextEdit.toPlainText()
         with open(basedir + '/files/' + str(self.exp.key) + "_openquestion1_" +
                   str(date.today()) + '.txt', 'w+') as f:
@@ -253,6 +255,10 @@ class Trial(QStackedWidget):
                 return 1
             else:
                 return 0
+
+    def next(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+
 
 
 
@@ -337,6 +343,12 @@ class End(QWidget):
         self.info_label.setStyleSheet("font-size: 50pt; color:black")
         self.info_label.move(int(self.width() * 0.3), int(self.height() * 0.5))
         self.info_label.setAlignment(Qt.AlignCenter)
+
+class Wait(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        uic.loadUi(os.path.join(basedir,'forms/wait.ui'), self)
+        self.textBrowser.setStyleSheet("color:black;")
 
 
 class RepeatTest(QWidget):
