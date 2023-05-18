@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>757</height>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,10 +62,10 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>380</y>
-      <width>841</width>
-      <height>191</height>
+      <x>180</x>
+      <y>310</y>
+      <width>1181</width>
+      <height>231</height>
      </rect>
     </property>
     <property name="frameShape">

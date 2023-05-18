@@ -188,6 +188,9 @@ class Trial(QStackedWidget):
     def build_post_trial(self, exp):
         trial = []
         case = []
+        self.widget.wait = Wait()
+        self.widget.addWidget(self.widget.wait)
+        self.widget.wait.pushButton.clicked.connect(self.next)
         if exp.group == "CAA":
             case1 = exp.data[exp.data["case"] == 1]
             if len(case1) > 0:
@@ -201,6 +204,7 @@ class Trial(QStackedWidget):
                 trial.append(exp.trials[exp.trials["seq"] == seq].iloc[0, :])
                 case.append(2)
 
+
         else:
             case = exp.data[exp.data["case"] == 1]
             if len(case) > 0:
@@ -208,17 +212,15 @@ class Trial(QStackedWidget):
                 trial = [exp.trials[exp.trials["seq"] == seq].iloc[0, :]]
                 case = [1]
         print(len(trial))
-        if len(trial) != 0:
-            self.widget.wait = Wait()
-            self.widget.addWidget(self.widget.wait)
-            for t, c in zip(trial, case):
-                self.widget.posttrialStacked = PostTrial.PostTrial(exp, c, t, self.widget)
-                self.widget.addWidget(self.widget.posttrialStacked)
+        if len(case) > 0:
+            if len(trial) != 0:
+                for t, c in zip(trial, case):
+                    self.widget.posttrialStacked = PostTrial.PostTrial(exp, c, t, self.widget)
+                    self.widget.addWidget(self.widget.posttrialStacked)
         self.widget.open_end = PostTrial.OpenQuestion()
         self.widget.addWidget(self.widget.open_end)
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
-        self.widget.wait.pushButton.clicked.connect(self.next)
         self.widget.open_end.weiterBtn.clicked.connect(self.end)
         self.next()
 
