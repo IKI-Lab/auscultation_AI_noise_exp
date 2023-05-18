@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.instruct2 = Instructions1(mode="2")
         self.stackedWidget.addWidget(self.instruct2)
         self.instruct3 = Instructions1(mode="3")
+        self.instruct3.textBrowser_2.setStyleSheet("color:black;")
         self.stackedWidget.addWidget(self.instruct3)
         self.instruct_group = GroupInstructions()
         self.stackedWidget.addWidget(self.instruct_group)
@@ -73,7 +74,8 @@ class MainWindow(QMainWindow):
 
     def display_instruct_group(self):
         if self.exp.group == "CAA":
-            self.instruct_group.textBrowser.append("<br><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica Neue\'; font-size:18pt;\">Außerdem wird Ihnen die Klassifikation der Auskultation durch das System präsentiert. Diese ist entweder “auffällig” oder “unauffällig”. <br/></span></p> ")
+            self.instruct_group.textBrowser.append("<br><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica Neue\'; font-size:18pt;\">Außerdem wird Ihnen die Klassifikation der Auskultation durch das System präsentiert. "
+                                                   "Diese ist entweder “<span style=\"font-weight: bold; color: red;\" > auffällig </span>“ oder “<span style=\"font-weight: bold; color: green ;\" > unauffällig </span>“. <br/></span></p> ")
         self.stackedWidget.setCurrentIndex(self.current() + 1)
 
 

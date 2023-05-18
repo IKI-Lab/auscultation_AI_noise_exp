@@ -140,19 +140,21 @@ class Trial(QStackedWidget):
     def display_info(self, status):
         if status == QMediaPlayer.EndOfMedia:
             trial = self.trial
-            values = ["HR: " + str(trial[4]) + '\n', "AVG Sys: " + str(trial[6])+ '\n',
-                      "AVG Dia: " + str(trial[7])+ '\n']
+            values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[6])+ '<br>',
+                      "AVG Dia: " + str(trial[7])+ '<br>']
 
             print(self.exp.get_group())
             if self.exp.get_group() == "CAA":
                     if trial[8] == 0:
-                        pred = "unauffällig"
+                        pred = "<span style=\"font-weight: bold; color: green ;\" > unauffällig </span></p>"
                     else:
-                        pred = "auffällig"
+                        pred = "<span style=\"font-weight: bold; color: red ;\" > auffällig </span></p>"
                     values.append("Einschätzung des Systems: " + pred)
-            values = "\n".join(values)
-            self.info.info_label.setText(values)
-            self.info.info_label.setAlignment(Qt.AlignCenter)
+            values = "<br>".join(values)
+            self.info.textBrowser.setHtml(values)
+            self.info.textBrowser.setFixedHeight(400)
+            self.info.textBrowser.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.info.textBrowser.setAlignment(Qt.AlignCenter)
             self.setCurrentIndex(self.current() + 1)
 
     def add_scale(self, obj):
@@ -176,11 +178,8 @@ class Trial(QStackedWidget):
             self.row.append(self.trial[8])
             # case
             self.row.append(self.def_case(self.row[1], self.row[4], self.row[-1]))
-            print(self.row)
             self.exp.data.loc[len(self.exp.data)] = self.row
             self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)
-            print(self.widget.tmp)
-            print(self.widget.currentIndex())
             if self.widget.tmp == self.widget.currentIndex():
                 self.build_post_trial(self.exp)
             else:
@@ -300,14 +299,9 @@ class Info(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir, 'forms/welcome.ui'), self)
-        self.textBrowser.setHtml("")
-        self.textBrowser.hide()
+        #self.textBrowser.setHtml("")
+        #self.textBrowser.hide()
         self.weiterBtn.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
-        self.info_label = QLabel(self)
-        #self.info_label.setFixedWidth(self.width())
-        self.info_label.setStyleSheet("font-size: 24pt; color:black")
-        self.info_label.move(int(self.width()*0.4), int(self.height()*0.5))
-        self.info_label.setAlignment(Qt.AlignCenter)
 
 
 class Confidence(QWidget):

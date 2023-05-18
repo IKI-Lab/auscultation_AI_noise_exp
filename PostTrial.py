@@ -3,6 +3,7 @@ from datetime import date
 
 from PyQt5 import uic
 from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import Qt
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QWidget, QStackedWidget
 
@@ -54,23 +55,25 @@ class PostTrial(QStackedWidget):
             #self.display_info(QMediaPlayer.EndOfMedia)  # for dev mode
 
     def display_info(self, status):
-            if status == QMediaPlayer.EndOfMedia:
-                # Creates the QLabel 'background' which will contain the white background
-                trial = self.trial
-                # Creates a blank version of the chosen word
-                values = ["HR: " + str(trial[4]), "AVG Sys: " + str(trial[6]),
-                          "AVG Dia: " + str(trial[7])]
+        if status == QMediaPlayer.EndOfMedia:
+            trial = self.trial
+            values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>',
+                      "AVG Sys: " + str(trial[6]) + '<br>',
+                      "AVG Dia: " + str(trial[7]) + '<br>']
 
-                print(self.exp.get_group())
-                if self.exp.get_group() == "CAA":
-                    if trial[8] == 0:
-                        pred = "unauffällig"
-                    else:
-                        pred = "auffällig"
-                    values.append("Einschätzung des Systems: " + pred)
-                values = "\n".join(values)
-                self.info.info_label.setText(values)
-                self.setCurrentIndex(self.current() + 1)
+            print(self.exp.get_group())
+            if self.exp.get_group() == "CAA":
+                if trial[8] == 0:
+                    pred = "<span style=\"font-weight: bold; color: green ;\" > unauffällig </span></p>"
+                else:
+                    pred = "<span style=\"font-weight: bold; color: red ;\" > auffällig </span></p>"
+                values.append("Einschätzung des Systems: " + pred)
+            values = "<br>".join(values)
+            self.info.textBrowser.setHtml(values)
+            self.info.textBrowser.setFixedHeight(400)
+            self.info.textBrowser.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.info.textBrowser.setAlignment(Qt.AlignCenter)
+            self.setCurrentIndex(self.current() + 1)
 
 
     def set_intro(self):
