@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>766</height>
+    <height>763</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,9 +63,9 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>60</y>
+      <y>80</y>
       <width>1171</width>
-      <height>281</height>
+      <height>261</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -84,16 +84,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;a) auf der x-Achse die Zeit  &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;b) auf der y-Achse die Amplitude bzw. die Spannung &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:18pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser_2">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>440</y>
+      <x>120</x>
+      <y>470</y>
       <width>1171</width>
-      <height>271</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -118,8 +118,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>200</y>
+      <x>130</x>
+      <y>270</y>
       <width>581</width>
       <height>161</height>
      </rect>
@@ -137,8 +137,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>640</y>
+      <x>130</x>
+      <y>620</y>
       <width>581</width>
       <height>161</height>
      </rect>
