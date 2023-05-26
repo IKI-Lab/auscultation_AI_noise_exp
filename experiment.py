@@ -2,11 +2,12 @@ import os
 import pandas as pd
 
 PATH = os.path.dirname(__file__)
-path_trials = PATH + "/trials.csv"
+#path_trials = PATH + "/trials_test.csv" # 4 trials
+path_trials = PATH + "/trials.csv" # 24 trials
 class Experiment:
     trials = pd.read_csv(path_trials, sep=";")
-    seqs = pd.read_csv(PATH+"/matrix.csv", sep=",")
-
+    #seqs = pd.read_csv(PATH+"/matrix.csv", sep=",") # for tests
+    seqs = pd.read_csv(PATH + "/seq_matrix.csv", sep=",") # full matrix
     def __init__(self):
         self.data = self.generate_trial_dataset()
         self.group = None
