@@ -69,6 +69,7 @@ class PostTrial(QStackedWidget):
                     pred = "<span style=\"font-weight: bold; color: red ;\" > auffällig </span></p>"
                 values.append("Einschätzung des Systems: " + pred)
             values = "<br>".join(values)
+            self.info.textBrowser.setStyleSheet("color:black;")
             self.info.textBrowser.setHtml(values)
             self.info.textBrowser.setFixedHeight(400)
             self.info.textBrowser.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
