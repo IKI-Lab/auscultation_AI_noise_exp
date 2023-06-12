@@ -23,6 +23,7 @@ class Experiment:
     def get_order(self):
         self.trials_iter = list(self.seqs.iloc[self.key, :])[1:]
         return self.trials_iter
+
     def get_group(self):
         if self.group != None:
             return self.group
