@@ -118,3 +118,10 @@ class OpenQuestion(QWidget):
         uic.loadUi(os.path.join(basedir, 'forms/' + "open_end.ui"), self)
         self.textBrowser.setStyleSheet("color:black;")
         self.plainTextEdit.setStyleSheet("color:black;")
+
+class OpenQuestionGoal(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        uic.loadUi(os.path.join(basedir, 'forms/' + "open_goal.ui"), self)
+        self.textBrowser.setStyleSheet("color:black;")
+        self.plainTextEdit.setStyleSheet("color:black;")

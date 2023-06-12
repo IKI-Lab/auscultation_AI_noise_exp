@@ -220,16 +220,19 @@ class Trial(QStackedWidget):
                     self.widget.addWidget(self.widget.posttrialStacked)
         self.widget.open_end = PostTrial.OpenQuestion()
         self.widget.addWidget(self.widget.open_end)
+        self.widget.open_goal = PostTrial.OpenQuestionGoal()
+        self.widget.addWidget(self.widget.open_goal)
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
+        self.widget.open_goal.weiterBtn.clicked.connect(lambda: self.end(1))
         self.widget.open_end.weiterBtn.clicked.connect(self.end)
         self.next()
 
 
-    def end(self):
+    def end(self, case=2):
         self.next()
         openq = self.widget.open_end.plainTextEdit.toPlainText()
-        with open(basedir + '/files/' + str(self.exp.key) + "_openquestion1_" +
+        with open(basedir + '/files/' + str(self.exp.key) + "_openquestion_" + str(case) + "_" +
                   str(date.today()) + '.txt', 'w+') as f:
             f.write(openq)
 

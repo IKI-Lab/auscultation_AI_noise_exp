@@ -7,7 +7,7 @@ path_trials = PATH + "/trials.csv" # 24 trials
 class Experiment:
     trials = pd.read_csv(path_trials, sep=";")
     #seqs = pd.read_csv(PATH+"/matrix.csv", sep=",") # for tests
-    seqs = pd.read_csv(PATH + "/seq_matrix.csv", sep=",") # full matrix
+    seqs = pd.read_csv(PATH + "/matrix16.csv", sep=",") # full matrix
     def __init__(self):
         self.data = self.generate_trial_dataset()
         self.group = None
