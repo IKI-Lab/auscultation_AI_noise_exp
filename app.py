@@ -88,10 +88,6 @@ class MainWindow(QMainWindow):
         self.trialStacked = trial.Trial(self.exp, trial_e, self.stackedWidget, test=False)
         self.stackedWidget.addWidget(self.trialStacked)
 
-
-
-
-
     def start_post_trial(self):
         self.stackedWidget.setCurrentIndex(self.current() + 1)
 

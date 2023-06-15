@@ -18,11 +18,9 @@ from instructions1 import TestStart
 from pygame import mixer
 display_width = pygame.display.Info().current_w
 display_height = pygame.display.Info().current_h
-
-
-
 basedir = os.path.dirname(__file__)
 stimuli = os.path.join(basedir, "stimuli")
+
 class Trial(QStackedWidget):
     def __init__(self, exp, trial, widget, test=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -33,8 +31,8 @@ class Trial(QStackedWidget):
         self.trial = trial
         self.start = 0
         self.finish = 0
+        self.mediaPlayer = 0
         self.vignette = Vignette()
-        print(self.trial[1])
         self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
 
         self.addWidget(self.vignette)
@@ -51,7 +49,6 @@ class Trial(QStackedWidget):
                                                                      self.currentIndex() + 1))
         self.classification.nein.clicked.connect(lambda: self.classify(self.classification.negative,
                                                                        self.currentIndex() + 1))
-
         self.confidence1 = Confidence()
         self.addWidget(self.confidence1)
         self.add_scale(self.confidence1)
@@ -70,8 +67,6 @@ class Trial(QStackedWidget):
                                                                       self.currentIndex() + 1))
         self.classification2.nein.clicked.connect(lambda: self.classify(self.classification2.negative,
                                                                         self.currentIndex() + 1))
-
-
         self.confidence2 = Confidence()
         self.addWidget(self.confidence2)
         self.add_scale(self.confidence2)
@@ -102,21 +97,19 @@ class Trial(QStackedWidget):
 
     def play_sound(self):
         audio = self.trial[2]
-        full_file_path = os.path.join(stimuli, "audio" ,audio)
+        full_file_path = os.path.join(stimuli, "audio", audio)
         mixer.init()
         record = mixer.Sound(full_file_path)
         len_rec = int(record.get_length())
         ##mixer.Sound.play(record) #dev
         ##mixer.music.stop() #dev
         #time.sleep(len_rec+2) #dev
-        print(self.row)
         self.setCurrentIndex(self.current()+1)
         self.start = datetime.now()
 
     def classify(self, value, i):
         if (i == 3 and len(self.row) < 2) or (i == 7 and len(self.row) < 5):
             self.row.append(value)
-            print(self.row)
             self.setCurrentIndex(i)
             self.finish = datetime.now()
             self.row.append((self.finish-self.start).total_seconds())
@@ -128,22 +121,26 @@ class Trial(QStackedWidget):
     def play_video(self):
         video = self.trial[3]
         full_file_path = os.path.join(stimuli, "video", video)
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        print(full_file_path)
+        self.mediaPlayer = VideoPlayer(None, QMediaPlayer.VideoSurface)
         self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
         self.mediaPlayer.setVideoOutput(self.video)
         # Play
-        #self.mediaPlayer.play() # with video
-        #self.mediaPlayer.mediaStatusChanged.connect(self.display_info) # with video
-        self.display_info(QMediaPlayer.EndOfMedia) # video off
+        self.mediaPlayer.play() # with video
+        self.mediaPlayer.mediaStatusChanged.connect(self.display_info) # with video
+        #self.display_info(QMediaPlayer.EndOfMedia) # video off
+
+
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key_Escape, Qt.Key_Return, 16777216) \
+                and self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.stop()
+            self.display_info(QMediaPlayer.EndOfMedia)
 
     def display_info(self, status):
         if status == QMediaPlayer.EndOfMedia:
             trial = self.trial
             values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[6])+ '<br>',
                       "AVG Dia: " + str(trial[7])+ '<br>']
-
-            print(self.exp.get_group())
             if self.exp.get_group() == "CAA":
                     if trial[8] == 0:
                         pred = "<span style=\"font-weight: bold; color: green ;\" > unauffällig </span></p>"
@@ -212,7 +209,6 @@ class Trial(QStackedWidget):
                 seq = case.iloc[0, 0]
                 trial = [exp.trials[exp.trials["seq"] == seq].iloc[0, :]]
                 case = [1]
-        print(len(trial))
         if len(case) > 0:
             if len(trial) != 0:
                 for t, c in zip(trial, case):
@@ -238,7 +234,6 @@ class Trial(QStackedWidget):
 
     def again(self):
         self.row = []
-        print(self.row)
         self.setCurrentIndex(0)
 
     def get_results(self):
@@ -276,6 +271,10 @@ class Vignette(QWidget):
         uic.loadUi(os.path.join(basedir,'forms/vignette.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
 
+class VideoPlayer(QMediaPlayer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 class PlayAudio(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -300,6 +299,7 @@ class PlayVideo(QVideoWidget):
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
         self.pushButton.setIconSize(QSize(50, 50))
+
 
 class Info(QWidget):
     def __init__(self, *args, **kwargs):
