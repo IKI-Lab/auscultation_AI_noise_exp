@@ -7,14 +7,13 @@ from datetime import date, datetime
 from PyQt5 import uic, QtTest
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QSize, QUrl, QTimer
-from PyQt5.QtGui import QIcon, QImage, QPixmap
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel
+from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel, QAction, QShortcut
 from PyQt5 import QtCore, QtWidgets
 
 import PostTrial
-from instructions1 import TestStart
 from pygame import mixer
 display_width = pygame.display.Info().current_w
 display_height = pygame.display.Info().current_h
@@ -22,78 +21,106 @@ basedir = os.path.dirname(__file__)
 stimuli = os.path.join(basedir, "stimuli")
 
 class Trial(QStackedWidget):
-    def __init__(self, exp, trial, widget, test=False, *args, **kwargs):
+    def __init__(self, exp, trial, widget, test=False, postTrial=False, case=-1, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.exp = exp
-        self.row = []
         self.widget = widget
         self.test = test
+        self.postTrial = postTrial
         self.trial = trial
+        self.row = []
+        self.mediaPlayer = 0
         self.start = 0
         self.finish = 0
-        self.mediaPlayer = 0
-        self.vignette = Vignette()
-        self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
+        if self.postTrial:
+            self.case = case
+            self.intro = PostTrial.IntroPostTrial(self.exp.group, self.case)
+            self.addWidget(self.intro)
+            self.intro.weiterBtn.clicked.connect(self.next_in_trial)
+            self.setCurrentIndex(0)
 
-        self.addWidget(self.vignette)
-        self.setCurrentIndex(0)
-        self.vignette.weiterBtn.clicked.connect(self.to_audio)
-        self.play_audio = PlayAudio()
-        self.player = QMediaPlayer()
-        self.addWidget(self.play_audio)
-        self.play_audio.pushButton.clicked.connect(self.play_sound)
+            self.vignette = Vignette()
+            self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
+            self.addWidget(self.vignette)
+            self.setCurrentIndex(0)
+            self.vignette.weiterBtn.clicked.connect(self.to_audio)
 
-        self.classification = Classification()
-        self.addWidget(self.classification)
-        self.classification.ja.clicked.connect(lambda: self.classify(self.classification.positive,
-                                                                     self.currentIndex() + 1))
-        self.classification.nein.clicked.connect(lambda: self.classify(self.classification.negative,
-                                                                       self.currentIndex() + 1))
-        self.confidence1 = Confidence()
-        self.addWidget(self.confidence1)
-        self.add_scale(self.confidence1)
+            self.video = PlayVideo()
+            self.addWidget(self.video)
+            self.video.pushButton.clicked.connect(self.play_video)
 
-        self.video = PlayVideo()
-        self.addWidget(self.video)
-        self.video.pushButton.clicked.connect(self.play_video)
+            self.info = Info()
+            self.addWidget(self.info)
+            self.info.weiterBtn.clicked.connect(self.next_in_trial)
 
-        self.info = Info()
-        self.addWidget(self.info)
-        self.info.weiterBtn.clicked.connect(self.classify_after)
+            self.textEdit = PostTrial.OpenPostTrial()
+            self.addWidget(self.textEdit)
+            self.textEdit.weiterBtn.clicked.connect(self.save_text)
 
-        self.classification2 = Classification()
-        self.addWidget(self.classification2)
-        self.classification2.ja.clicked.connect(lambda: self.classify(self.classification2.positive,
-                                                                      self.currentIndex() + 1))
-        self.classification2.nein.clicked.connect(lambda: self.classify(self.classification2.negative,
-                                                                        self.currentIndex() + 1))
-        self.confidence2 = Confidence()
-        self.addWidget(self.confidence2)
-        self.add_scale(self.confidence2)
+        else:
+            self.vignette = Vignette()
+            self.vignette.textBrowser.append("<p style=\"font-size:24pt;\">" + self.trial[1] + "</p> ")
+            self.addWidget(self.vignette)
+            self.setCurrentIndex(0)
+            self.vignette.weiterBtn.clicked.connect(self.to_audio)
 
-        self.Trust = Trust()
-        self.addWidget(self.Trust)
-        self.add_scale(self.Trust)
+            self.play_audio = PlayAudio()
+            self.player = QMediaPlayer()
+            self.addWidget(self.play_audio)
+            self.play_audio.pushButton.clicked.connect(self.play_sound)
 
-        self.Use = Use()
-        self.addWidget(self.Use)
-        self.add_scale(self.Use)
+            self.classification = Classification()
+            self.addWidget(self.classification)
+            self.classification.ja.clicked.connect(lambda: self.classify(self.classification.positive, self.current() + 1))
+            self.classification.nein.clicked.connect(lambda: self.classify(self.classification.negative, self.current() + 1))
 
-        self.diff = Difficulty()
-        self.addWidget(self.diff)
-        self.add_scale(self.diff)
+            self.confidence1 = Confidence()
+            self.addWidget(self.confidence1)
+            self.add_scale(self.confidence1)
 
-        if test:
-            self.repeat = RepeatTest()
-            self.addWidget(self.repeat)
-            self.repeat.again.clicked.connect(self.again)
-            self.repeat.start.clicked.connect(self.next)
+            self.video = PlayVideo()
+            self.addWidget(self.video)
+            self.video.pushButton.clicked.connect(self.play_video)
+
+            self.info = Info()
+            self.addWidget(self.info)
+            self.info.weiterBtn.clicked.connect(self.next_in_trial)
+
+            self.classification2 = Classification()
+            self.addWidget(self.classification2)
+            self.classification2.ja.clicked.connect(lambda: self.classify(self.classification2.positive,self.current() +1))
+            self.classification2.nein.clicked.connect(lambda: self.classify(self.classification2.negative,self.current() +1))
+            self.confidence2 = Confidence()
+            self.addWidget(self.confidence2)
+            self.add_scale(self.confidence2)
+
+            self.Trust = Trust()
+            self.addWidget(self.Trust)
+            self.add_scale(self.Trust)
+
+            self.diff = Difficulty()
+            self.addWidget(self.diff)
+            self.add_scale(self.diff)
+            if test:
+                self.repeat = RepeatTest()
+                self.addWidget(self.repeat)
+                self.repeat.again.clicked.connect(self.again)
+                self.repeat.start.clicked.connect(self.next)
+
+        # Create exit action
+        self.shortcut = QShortcut(QKeySequence("q"), self)
+        self.shortcut.activated.connect(self.handleQuit)
 
 
+
+    def handleQuit(self):
+        if self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.stop()
+            self.display_info(QMediaPlayer.EndOfMedia)
 
     def to_audio(self):
         self.row.append(self.trial[0])
-        self.setCurrentIndex(self.current()+1)
+        self.next_in_trial()
 
     def play_sound(self):
         audio = self.trial[2]
@@ -104,17 +131,18 @@ class Trial(QStackedWidget):
         ##mixer.Sound.play(record) #dev
         ##mixer.music.stop() #dev
         #time.sleep(len_rec+2) #dev
-        self.setCurrentIndex(self.current()+1)
+        self.next_in_trial()
         self.start = datetime.now()
 
     def classify(self, value, i):
-        if (i == 3 and len(self.row) < 2) or (i == 7 and len(self.row) < 5):
+        print(self.row)
+        if (i == 3 and len(self.row) < 2) or (i == 7 and len(self.row) < 6):
             self.row.append(value)
             self.setCurrentIndex(i)
             self.finish = datetime.now()
             self.row.append((self.finish-self.start).total_seconds())
 
-    def classify_after(self):
+    def next_in_trial(self):
         self.setCurrentIndex(self.current()+1)
 
 
@@ -124,20 +152,16 @@ class Trial(QStackedWidget):
         self.mediaPlayer = VideoPlayer(None, QMediaPlayer.VideoSurface)
         self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
         self.mediaPlayer.setVideoOutput(self.video)
+        self.start = datetime.now()
         # Play
         self.mediaPlayer.play() # with video
         self.mediaPlayer.mediaStatusChanged.connect(self.display_info) # with video
         #self.display_info(QMediaPlayer.EndOfMedia) # video off
 
-
-    def keyPressEvent(self, event):
-        if event.key() in (Qt.Key_Escape, Qt.Key_Return, 16777216) \
-                and self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
-            self.mediaPlayer.stop()
-            self.display_info(QMediaPlayer.EndOfMedia)
-
     def display_info(self, status):
-        if status == QMediaPlayer.EndOfMedia:
+        if status == QMediaPlayer.EndOfMedia or status == QMediaPlayer.StoppedState:
+            self.finish = datetime.now()
+            self.row.append((self.finish - self.start).total_seconds())
             trial = self.trial
             values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[6])+ '<br>',
                       "AVG Dia: " + str(trial[7])+ '<br>']
@@ -154,34 +178,35 @@ class Trial(QStackedWidget):
             self.info.textBrowser.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
             self.info.textBrowser.setAlignment(Qt.AlignCenter)
             self.setCurrentIndex(self.current() + 1)
+            self.start = datetime.now()
 
     def add_scale(self, obj):
-        obj.pushButton.clicked.connect(lambda: self.measure(1, self.currentIndex() + 1))
-        obj.pushButton_2.clicked.connect(lambda: self.measure(2, self.currentIndex() + 1))
-        obj.pushButton_3.clicked.connect(lambda: self.measure(3, self.currentIndex() + 1))
-        obj.pushButton_4.clicked.connect(lambda: self.measure(4, self.currentIndex() + 1))
-        obj.pushButton_5.clicked.connect(lambda: self.measure(5, self.currentIndex() + 1))
+        obj.pushButton.clicked.connect(lambda: self.measure(1))
+        obj.pushButton_2.clicked.connect(lambda: self.measure(2))
+        obj.pushButton_3.clicked.connect(lambda: self.measure(3))
+        obj.pushButton_4.clicked.connect(lambda: self.measure(4))
+        obj.pushButton_5.clicked.connect(lambda: self.measure(5))
 
-    def measure(self, value, i):
-        if i == 4 and len(self.row)<4:
+    def measure(self, value):
+        i = self.current()
+        if i == 3 and len(self.row)<4:
             self.row.append(value)
-            self.setCurrentIndex(i)
+            self.next_in_trial()
 
-        elif (i - len(self.row) == 2):
+        elif (i - len(self.row) == 0):
             self.row.append(value)
-            self.setCurrentIndex(i)
+            self.next_in_trial()
 
 
-        if i == 11 and not self.test:
+        if i == 9 and not self.test and not self.postTrial:
             self.row.append(self.trial[8])
             # case
-            self.row.append(self.def_case(self.row[1], self.row[4], self.row[-1]))
+            self.row.append(self.def_case(self.row[1], self.row[5], self.row[-1]))
             self.exp.data.loc[len(self.exp.data)] = self.row
+            print(self.row)
             self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)
-            if self.widget.tmp == self.widget.currentIndex():
-                self.build_post_trial(self.exp)
-            else:
-                self.next()
+            self.build_post_trial(self.exp)
+            self.next()
 
     def build_post_trial(self, exp):
         trial = []
@@ -201,8 +226,6 @@ class Trial(QStackedWidget):
                 seq = case2.iloc[0, 0]
                 trial.append(exp.trials[exp.trials["seq"] == seq].iloc[0, :])
                 case.append(2)
-
-
         else:
             case = exp.data[exp.data["case"] == 1]
             if len(case) > 0:
@@ -212,7 +235,7 @@ class Trial(QStackedWidget):
         if len(case) > 0:
             if len(trial) != 0:
                 for t, c in zip(trial, case):
-                    self.widget.posttrialStacked = PostTrial.PostTrial(exp, c, t, self.widget)
+                    self.widget.posttrialStacked = Trial(exp, t, self.widget, postTrial=True, case=c)
                     self.widget.addWidget(self.widget.posttrialStacked)
         self.widget.open_goal = PostTrial.OpenQuestionGoal()
         self.widget.addWidget(self.widget.open_goal)
@@ -221,13 +244,15 @@ class Trial(QStackedWidget):
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
         self.widget.open_goal.weiterBtn.clicked.connect(lambda: self.end(1))
-        self.widget.open_end.weiterBtn.clicked.connect(self.end)
-        self.next()
+        self.widget.open_end.weiterBtn.clicked.connect(lambda: self.end(2))
 
 
-    def end(self, case=2):
+    def end(self, case):
         self.next()
-        openq = self.widget.open_end.plainTextEdit.toPlainText()
+        if case==1:
+            openq = self.widget.open_goal.plainTextEdit.toPlainText()
+        else:
+            openq = self.widget.open_end.plainTextEdit.toPlainText()
         with open(basedir + '/files/' + str(self.exp.key) + "_openquestion_" + str(case) + "_" +
                   str(date.today()) + '.txt', 'w+') as f:
             f.write(openq)
@@ -256,6 +281,13 @@ class Trial(QStackedWidget):
             else:
                 return 0
 
+    def save_text(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex()+1)
+        openq = self.textEdit.plainTextEdit.toPlainText()
+        with open(basedir + '/files/' + str(self.exp.key) +
+                                       "_case_" + str(self.case) + "_" + str(date.today()) + '.txt', 'w+') as f:
+            f.write(openq)
+
     def next(self):
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
 
@@ -283,6 +315,7 @@ class PlayAudio(QWidget):
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
         self.pushButton.setIconSize(QSize(50, 50))
 
+
 class Classification(QWidget):
     positive = 1
     negative = 0
@@ -299,7 +332,13 @@ class PlayVideo(QVideoWidget):
         self.textBrowser.setStyleSheet("color:black;")
         self.pushButton.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
         self.pushButton.setIconSize(QSize(50, 50))
-
+"""""""""
+    def keyPressEvent(self, event):
+        print(event.key())
+        if event.key() in (Qt.Key_Escape, Qt.Key_Return, 16777216) \
+                and self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.stop()
+"""""""""
 
 class Info(QWidget):
     def __init__(self, *args, **kwargs):

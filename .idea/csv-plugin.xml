@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/files/0_2023-06-20.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/files/1_2023-05-18.csv">
           <value>
             <Attribute>
