@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>861</width>
+    <width>1440</width>
     <height>756</height>
    </rect>
   </property>
@@ -65,7 +65,7 @@
       <x>130</x>
       <y>80</y>
       <width>1171</width>
-      <height>581</height>
+      <height>601</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -78,11 +78,14 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt; font-weight:600;&quot;&gt;Experimentalablauf:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Als erstes bekommen Sie eine kurze Information zu Patient*in und Auskultationspunkt der Aufnahme, z.B. &amp;quot;Auskultation bei einem männlichen Jugendlichen an der Mitralklappe (3. ICR links)&amp;quot;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Als erstes bekommen Sie eine kurze Information zu Patient*in und Auskultationspunkt der Aufnahme, &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;z.B. &amp;quot;Auskultation bei einem männlichen Jugendlichen an der Mitralklappe (3. ICR links)&amp;quot;.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Als zweites hören Sie die entsprechende Aufnahme, sollen diese klassifizieren (auffällig vs. unauffällig) und angeben, wie sicher Sie sich mit Ihrer Einschätzung sind.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;Als drittes bekommen Sie zusätzlich zu der Aufnahme noch Unterstützung durch ein Assistenzsystem zur digitalen Auskultation, welches die Herztöne visualisiert und Ihnen zusätzliche Informationen gibt.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;Nach dem erneuten Hören mit Assistenzsystem, haben Sie die Möglichkeit Ihre vorherige Entscheidung zu revidieren und es wird erneut abgefragt, wie sicher Sie sich sind. Außerdem sollen Sie angeben, wie sehr Sie dem System vertrauen, wie schwierig Sie die Klassifikation fanden und ob das System für die Aufgabe nützlich war.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;Nach dem erneuten Hören mit Assistenzsystem, haben Sie die Möglichkeit Ihre vorherige Entscheidung zu revidieren und es wird erneut abgefragt, wie sicher Sie sich sind. Außerdem sollen Sie angeben, wie sehr Sie dem System vertrauen und wie schwierig Sie die Klassifikation fanden.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Am Ende des Experimentes bekommen Sie noch einen Fragebogen zur Systemevaluation und die Möglichkeit, Rückmeldung zu der Studie zu geben.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Im Folgenden erhalten Sie noch weitere Informationen über das Assistenzsystem. Lesen Sie diese bitte gründlich!&lt;/span&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>

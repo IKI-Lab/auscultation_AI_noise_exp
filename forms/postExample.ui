@@ -63,9 +63,9 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>250</y>
+      <y>310</y>
       <width>1141</width>
-      <height>231</height>
+      <height>221</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -76,7 +76,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Manche der folgenden Aufnahmen sind in ruhiger Umgebung und andere in lauter Umgebung aufgenommen worden. Versuchen Sie Ihre Einschätzung so gut wie möglich zu treffen, auch wenn Sie sich unsicher sind oder Sie in einem realen Setting eine neue Aufnahme fordern würden. Ein wiederholtes Abspielen der Aufnahmen ist nicht möglich.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Manche der folgenden Aufnahmen sind in ruhiger Umgebung und andere in lauter Umgebung aufgenommen worden. Versuchen Sie Ihre Einschätzung so gut wie möglich zu treffen, auch wenn Sie sich unsicher sind oder Sie in einem realen Setting eine neue Aufnahme fordern würden. &lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Um das Experiment zu starten drücken Sie „Weiter“. Bitte wenden Sie sich erst an die Versuchsleitung, wenn Sie explizit dazu aufgefordert werden oder Sie das Experiment abbrechen wollen.&lt;/span&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
