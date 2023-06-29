@@ -49,12 +49,11 @@ class Trial(QStackedWidget):
         self.addWidget(self.vignette)
         self.setCurrentIndex(0)
         self.vignette.weiterBtn.clicked.connect(self.to_audio)
-        self.play_audio = PlayAudio()
-        self.player = QMediaPlayer()
-        self.addWidget(self.play_audio)
+        self.audio = PlayVideo()
+        self.addWidget(self.audio)
         audio = self.trial[2]
         path_a = os.path.join(stimuli, "audio", audio)
-        self.play_audio.pushButton.clicked.connect(lambda: self.play_video(path_a))
+        self.audio.pushButton.clicked.connect(lambda: self.play_video(path_a, True))
         self.classification = Classification()
         self.addWidget(self.classification)
         self.classification.ja.clicked.connect(lambda: self.classify(self.classification.positive, self.current() + 1))
@@ -100,7 +99,9 @@ class Trial(QStackedWidget):
         self.vignette.weiterBtn.clicked.connect(self.to_audio)
         self.video = PlayVideo()
         self.addWidget(self.video)
-        self.video.pushButton.clicked.connect(self.play_video)
+        video = self.trial[3]
+        path_v = os.path.join(stimuli, "video", video)
+        self.video.pushButton.clicked.connect(lambda: self.play_video(path_v))
         self.info = Info()
         self.addWidget(self.info)
         self.info.weiterBtn.clicked.connect(self.next_in_trial)
@@ -119,7 +120,7 @@ class Trial(QStackedWidget):
 
     def classify(self, value, i):
         print(self.row)
-        if (i == 3 and len(self.row) < 2) or (i == 7 and len(self.row) < 6):
+        if (i == 3 and len(self.row) < 3) or (i == 7 and len(self.row) < 7):
             self.row.append(value)
             self.setCurrentIndex(i)
             self.finish = datetime.now()
@@ -129,10 +130,13 @@ class Trial(QStackedWidget):
         self.setCurrentIndex(self.current()+1)
 
 
-    def play_video(self, full_file_path):
-        self.mediaPlayer = VideoPlayer(None, QMediaPlayer.VideoSurface)
+    def play_video(self, full_file_path, audio=False):
+        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(full_file_path)))
-        self.mediaPlayer.setVideoOutput(self.video)
+        if audio:
+            self.mediaPlayer.setVideoOutput(self.audio)
+        else:
+            self.mediaPlayer.setVideoOutput(self.video)
         self.start = datetime.now()
         # Play
         self.mediaPlayer.play() # with video
@@ -147,7 +151,7 @@ class Trial(QStackedWidget):
             values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[6])+ '<br>',
                       "AVG Dia: " + str(trial[7])+ '<br>']
             if self.exp.get_group() == "CAA":
-                    if trial[8] == 0:
+                    if trial[-2] == 0:
                         pred = "<span style=\"font-weight: bold; color: green ;\" > unauffällig </span></p>"
                     else:
                         pred = "<span style=\"font-weight: bold; color: red ;\" > auffällig </span></p>"
@@ -170,19 +174,19 @@ class Trial(QStackedWidget):
 
     def measure(self, value):
         i = self.current()
-        if i == 3 and len(self.row)<4:
+        if i == 3 and len(self.row)<5:
             self.row.append(value)
             self.next_in_trial()
 
-        elif (i - len(self.row) == 0):
+        elif (i - len(self.row) == -1):
             self.row.append(value)
             self.next_in_trial()
 
 
         if i == 9 and not self.test and not self.postTrial:
-            self.row.append(self.trial[8])
-            # case
-            self.row.append(self.def_case(self.row[1], self.row[5], self.row[-1]))
+            self.row.append(self.trial[-2])
+            # caseq
+            self.row.append(self.def_case(self.row[2], self.row[6], self.row[-1]))
             self.exp.data.loc[len(self.exp.data)] = self.row
             print(self.row)
             self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)

@@ -29,7 +29,7 @@ class Experiment:
             return self.group
 
     def generate_trial_dataset(self, trials_iter=pd.Series()):
-        col = ["seq", "opinion_before", "r_time1", "confidence_before", "play_time", "opinion_after", "r_time2",
+        col = ["seq", 'audio_play_time', "opinion_before", "r_time1", "confidence_before", "play_time", "opinion_after", "r_time2",
                "confidence_after", "trust_system", "difficulty_level", "y_pred", "case"]
         cols = []
         if len(trials_iter) != 0:
