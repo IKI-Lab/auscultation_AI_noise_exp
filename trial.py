@@ -11,10 +11,8 @@ from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel, QAction, QShortcut
-from PyQt5 import QtCore, QtWidgets
 
 import PostTrial
-from pygame import mixer
 display_width = pygame.display.Info().current_w
 display_height = pygame.display.Info().current_h
 basedir = os.path.dirname(__file__)
@@ -54,7 +52,7 @@ class Trial(QStackedWidget):
         self.play_audio = PlayAudio()
         self.player = QMediaPlayer()
         self.addWidget(self.play_audio)
-        audio = self.trial[3]
+        audio = self.trial[2]
         path_a = os.path.join(stimuli, "audio", audio)
         self.play_audio.pushButton.clicked.connect(lambda: self.play_video(path_a))
         self.classification = Classification()
