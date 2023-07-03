@@ -62,10 +62,10 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>310</y>
-      <width>1051</width>
-      <height>271</height>
+      <x>170</x>
+      <y>100</y>
+      <width>1111</width>
+      <height>511</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -79,7 +79,7 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Im Folgenden wird Ihnen der Experimentalablauf an einem Beispiel gezeigt. &lt;/span&gt; &lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Sie können das Beispiel so häufig wiederholen, wie Sie möchten.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt; font-weight:600;&quot;&gt;Hinweis: &lt;/span&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Wenn Sie während des Experimentes das Abspielen einer Aufnahme frühzeitig abbrechen wollen, drücken Sie die Taste &amp;quot;q&amp;quot; auf der Tastatur. Ein wiederholtes Abspielen der Aufnahmen ist nicht möglich. Nach einem frühzeitigen Abbruch der Aufnahme kann die Aufnahme nicht erneut oder an derselben Stelle abgespielt werden. &lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt; font-weight:600;&quot;&gt;Hinweis: &lt;/span&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Wenn Sie während des Experimentes das Abspielen einer Aufnahme frühzeitig abbrechen wollen, drücken Sie die Taste &amp;quot;Q&amp;quot; auf der Tastatur. Ein wiederholtes Abspielen der Aufnahmen ist nicht möglich. Nach einem frühzeitigen Abbruch der Aufnahme kann die Aufnahme nicht erneut oder an derselben Stelle abgespielt werden. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Helvetica Neue'; font-size:24pt;&quot;&gt;Drücken Sie “Weiter”, um den Probedurchgang zu starten.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
