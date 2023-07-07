@@ -5,9 +5,9 @@ import pygame
 from moviepy.editor import *
 from datetime import date, datetime
 from PyQt5 import uic, QtTest
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtCore import QSize, QUrl, QTimer
-from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QTextCursor
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel, QAction, QShortcut
@@ -30,8 +30,9 @@ class Trial(QStackedWidget):
         self.mediaPlayer = 0
         self.start = 0
         self.finish = 0
+        self.char =""
         if self.postTrial:
-            self.build_posttrial(case)
+            self.build_posttrial_widgets(case)
         else:
             self.build_trial()
             if test:
@@ -86,7 +87,7 @@ class Trial(QStackedWidget):
         self.addWidget(self.diff)
         self.add_scale(self.diff)
 
-    def build_posttrial(self, case):
+    def build_posttrial_widgets(self, case):
         self.case = case
         self.intro = PostTrial.IntroPostTrial(self.exp.group, self.case)
         self.addWidget(self.intro)
@@ -108,6 +109,8 @@ class Trial(QStackedWidget):
         self.textEdit = PostTrial.OpenPostTrial()
         self.addWidget(self.textEdit)
         self.textEdit.weiterBtn.clicked.connect(self.save_text)
+        self.textEdit.plainTextEdit.textChanged.connect(
+            lambda: self.handle_text_edit(self.textEdit.plainTextEdit))
 
     def handleQuit(self):
         if self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
@@ -119,7 +122,6 @@ class Trial(QStackedWidget):
         self.next_in_trial()
 
     def classify(self, value, i):
-        print(self.row)
         if (i == 3 and len(self.row) < 3) or (i == 7 and len(self.row) < 7):
             self.row.append(value)
             self.setCurrentIndex(i)
@@ -148,8 +150,8 @@ class Trial(QStackedWidget):
             self.finish = datetime.now()
             self.row.append((self.finish - self.start).total_seconds())
             trial = self.trial
-            values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[6])+ '<br>',
-                      "AVG Dia: " + str(trial[7])+ '<br>']
+            values = ["<p style=\"font-size:24pt;\">", "HR: " + str(trial[4]) + '<br>', "AVG Sys: " + str(trial[5])+ '<br>',
+                      "AVG Dia: " + str(trial[6])+ '<br>']
             if self.exp.get_group() == "CAA":
                     if trial[-2] == 0:
                         pred = "<span style=\"font-weight: bold; color: green ;\" > unauffällig </span></p>"
@@ -180,18 +182,19 @@ class Trial(QStackedWidget):
 
         elif (i - len(self.row) == -1):
             self.row.append(value)
-            self.next_in_trial()
-
-
-        if i == 9 and not self.test and not self.postTrial:
-            self.row.append(self.trial[-2])
-            # caseq
-            self.row.append(self.def_case(self.row[2], self.row[6], self.row[-1]))
-            self.exp.data.loc[len(self.exp.data)] = self.row
-            print(self.row)
-            self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)
-            self.build_post_trial(self.exp)
-            self.next()
+            if i == 9 and not self.test and not self.postTrial:
+                self.row.append(self.trial[-2])
+                self.row.append(self.def_case(self.row[2], self.row[6], self.row[-1]))
+                self.exp.data.loc[len(self.exp.data)] = self.row
+                self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)
+                print("saved:")
+                print(self.row)
+                if self.exp.seqs.iloc[self.exp.key, -1] == self.trial[0]:
+                    print("building post-trials...")
+                    self.build_post_trial(self.exp)
+                self.next()
+            else:
+                self.next_in_trial()
 
     def build_post_trial(self, exp):
         trial = []
@@ -220,8 +223,8 @@ class Trial(QStackedWidget):
         if len(case) > 0:
             if len(trial) != 0:
                 for t, c in zip(trial, case):
-                    self.widget.posttrialStacked = Trial(exp, t, self.widget, postTrial=True, case=c)
-                    self.widget.addWidget(self.widget.posttrialStacked)
+                    print("Case:" + str(c) + " Trial: " + str(t[0]) )
+                    self.widget.addWidget(Trial(exp, t, self.widget, postTrial=True, case=c))
         self.widget.open_goal = PostTrial.OpenQuestionGoal()
         self.widget.addWidget(self.widget.open_goal)
         self.widget.open_end = PostTrial.OpenQuestion()
@@ -229,7 +232,20 @@ class Trial(QStackedWidget):
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
         self.widget.open_goal.weiterBtn.clicked.connect(lambda: self.end(1))
+        self.widget.open_goal.plainTextEdit.textChanged.connect(
+            lambda: self.handle_text_edit(self.widget.open_goal.plainTextEdit))
         self.widget.open_end.weiterBtn.clicked.connect(lambda: self.end(2))
+        self.widget.open_end.plainTextEdit.textChanged.connect(
+            lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
+
+    def handle_text_edit(self, text_edit):
+        text = text_edit.toPlainText()
+        if len(text)>2 and len(text) - len(self.char)>1:
+            if text[-2] == text[-1]:
+                self.char = self.char + text[-1]
+                text_edit.setPlainText(self.char)
+                text_edit.moveCursor(QTextCursor.End)
+
 
 
     def end(self, case):
