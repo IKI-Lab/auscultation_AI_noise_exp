@@ -240,6 +240,8 @@ class Trial(QStackedWidget):
 
     def handle_text_edit(self, text_edit):
         text = text_edit.toPlainText()
+        if (text[:6] == "Tippen"):
+            self.char = ""
         if len(text)>2 and len(text) - len(self.char)>1:
             if text[-2] == text[-1]:
                 self.char = self.char + text[-1]
@@ -250,7 +252,8 @@ class Trial(QStackedWidget):
 
     def end(self, case):
         self.next()
-        if case==1:
+        openq = ""
+        if case == 1:
             openq = self.widget.open_goal.plainTextEdit.toPlainText()
         else:
             openq = self.widget.open_end.plainTextEdit.toPlainText()
