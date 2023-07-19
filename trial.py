@@ -10,7 +10,7 @@ from PyQt5.QtCore import QSize, QUrl, QTimer
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QTextCursor
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel, QAction, QShortcut
+from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QStyle, QLabel, QAction, QShortcut, QPlainTextEdit
 
 import PostTrial
 display_width = pygame.display.Info().current_w
@@ -242,13 +242,15 @@ class Trial(QStackedWidget):
         text = text_edit.toPlainText()
         if (text[:6] == "Tippen"):
             self.char = ""
-        if len(text)>2 and len(text) - len(self.char)>1:
+        if bytes(text[-1], 'utf-8') == b'\x08' and self.char!="":
+            self.char = self.char[:-1]
+            text_edit.setPlainText(self.char)
+            text_edit.moveCursor(QTextCursor.End)
+        elif len(text)>2 and len(text) - len(self.char)>1:
             if text[-2] == text[-1]:
                 self.char = self.char + text[-1]
                 text_edit.setPlainText(self.char)
                 text_edit.moveCursor(QTextCursor.End)
-
-
 
     def end(self, case):
         self.next()
@@ -341,8 +343,6 @@ class Info(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir, 'forms/welcome.ui'), self)
-        #self.textBrowser.setHtml("")
-        #self.textBrowser.hide()
         self.weiterBtn.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
 
 
@@ -392,6 +392,8 @@ class RepeatTest(QWidget):
         super().__init__(*args, **kwargs)
         uic.loadUi(os.path.join(basedir,'forms/repeat_test.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
+
+
 
 # change mouse position
 # trial csv
