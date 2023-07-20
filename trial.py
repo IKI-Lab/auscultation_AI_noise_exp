@@ -235,8 +235,8 @@ class Trial(QStackedWidget):
         self.widget.open_goal.plainTextEdit.textChanged.connect(
             lambda: self.handle_text_edit(self.widget.open_goal.plainTextEdit))
         self.widget.open_end.weiterBtn.clicked.connect(lambda: self.end(2))
-        #self.widget.open_end.plainTextEdit.textChanged.connect(
-       #     lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
+        self.widget.open_end.plainTextEdit.textChanged.connect(
+            lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
 
     def handle_text_edit(self, text_edit):
         text = text_edit.toPlainText()
