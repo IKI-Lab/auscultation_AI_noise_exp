@@ -235,18 +235,18 @@ class Trial(QStackedWidget):
         self.widget.open_goal.plainTextEdit.textChanged.connect(
             lambda: self.handle_text_edit(self.widget.open_goal.plainTextEdit))
         self.widget.open_end.weiterBtn.clicked.connect(lambda: self.end(2))
-        self.widget.open_end.plainTextEdit.textChanged.connect(
-            lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
+        #self.widget.open_end.plainTextEdit.textChanged.connect(
+       #     lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
 
     def handle_text_edit(self, text_edit):
         text = text_edit.toPlainText()
         if (text[:6] == "Tippen"):
             self.char = ""
-        if bytes(text[-1], 'utf-8') == b'\x08' and self.char!="":
+        if text != "" and bytes(text[-1], 'utf-8') == b'\x08':
             self.char = self.char[:-1]
             text_edit.setPlainText(self.char)
             text_edit.moveCursor(QTextCursor.End)
-        elif len(text)>2 and len(text) - len(self.char)>1:
+        if len(text) > 1 and len(text) - len(self.char) > 1:
             if text[-2] == text[-1]:
                 self.char = self.char + text[-1]
                 text_edit.setPlainText(self.char)
@@ -254,7 +254,6 @@ class Trial(QStackedWidget):
 
     def end(self, case):
         self.next()
-        openq = ""
         if case == 1:
             openq = self.widget.open_goal.plainTextEdit.toPlainText()
         else:
