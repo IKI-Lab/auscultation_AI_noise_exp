@@ -1,8 +1,8 @@
 import os
 import sys
 
-from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
+from PyQt5 import uic, QtWidgets, QtCore
 from datetime import date
 
 import PostTrial
