@@ -392,8 +392,6 @@ class RepeatTest(QWidget):
         uic.loadUi(os.path.join(basedir,'forms/repeat_test.ui'), self)
         self.textBrowser.setStyleSheet("color:black;")
 
-
-
 # change mouse position
 # trial csv
 # deleting
