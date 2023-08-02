@@ -206,14 +206,8 @@ class Trial(QStackedWidget):
                 for t, c in zip(trial, case):
                     print("Case:" + str(c) + " Trial: " + str(t[0]) )
                     self.widget.addWidget(Trial(exp, t, self.widget, postTrial=True, case=c))
-        self.widget.open_goal = PostTrial.OpenQuestionGoal()
-        self.widget.addWidget(self.widget.open_goal)
-        self.widget.open_end = PostTrial.OpenQuestion()
-        self.widget.addWidget(self.widget.open_end)
         self.widget.end = End()
         self.widget.addWidget(self.widget.end)
-        self.widget.open_goal.weiterBtn.clicked.connect(self.next)
-        self.widget.open_end.weiterBtn.clicked.connect(self.next)
 
     def pick_trials_for_postrials(self, case, exp, trial):
         if exp.group == "CAA":
@@ -358,7 +352,7 @@ class End(QWidget):
         self.textBrowser.setHtml("")
         self.textBrowser.hide()
         self.weiterBtn.hide()
-        self.info_label = QLabel("Vielen Dank für Ihre Teilnahme!", self)
+        self.info_label = QLabel("Bitte fahren Sie mit dem Fragebogen auf dem Tablet fort.", self)
         self.info_label.setStyleSheet("font-size: 50pt; color:black")
         self.info_label.move(int(self.width() * 0.3), int(self.height() * 0.5))
         self.info_label.setAlignment(Qt.AlignCenter)
