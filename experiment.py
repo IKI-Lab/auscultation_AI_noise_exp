@@ -21,8 +21,8 @@ class Experiment:
         return self.group
 
     def get_order(self):
-        self.trials_iter = list(self.seqs.iloc[self.key, :])[1:4]
-        self.seqs = self.seqs.iloc[:, 1:4]
+        self.trials_iter = list(self.seqs.iloc[self.key, :])[1:]
+        #self.seqs = self.seqs.iloc[:, 1:4]
         return self.trials_iter
 
     def get_group(self):
