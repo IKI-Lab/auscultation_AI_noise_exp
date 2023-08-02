@@ -30,7 +30,6 @@ class Trial(QStackedWidget):
         self.mediaPlayer = 0
         self.start = 0
         self.finish = 0
-        self.char =""
         if self.postTrial:
             self.build_posttrial_widgets(case)
         else:
@@ -40,8 +39,7 @@ class Trial(QStackedWidget):
                 self.addWidget(self.repeat)
                 self.repeat.again.clicked.connect(self.again)
                 self.repeat.start.clicked.connect(self.next)
-        # Create exit action on "q"
-        self.shortcut = QShortcut(QKeySequence("q"), self)
+        self.shortcut = QShortcut(QKeySequence("q"), self) # Create exit action on "q"
         self.shortcut.activated.connect(self.handleQuit)
 
     def build_trial(self):
@@ -108,9 +106,8 @@ class Trial(QStackedWidget):
         self.info.weiterBtn.clicked.connect(self.next_in_trial)
         self.textEdit = PostTrial.OpenPostTrial()
         self.addWidget(self.textEdit)
-        self.textEdit.weiterBtn.clicked.connect(self.save_text)
-        self.textEdit.plainTextEdit.textChanged.connect(
-            lambda: self.handle_text_edit(self.textEdit.plainTextEdit))
+        self.textEdit.weiterBtn.clicked.connect(self.next)
+
 
     def handleQuit(self):
         if self.mediaPlayer != 0 and self.mediaPlayer.state() == QMediaPlayer.PlayingState:
@@ -187,8 +184,6 @@ class Trial(QStackedWidget):
                 self.row.append(self.def_case(self.row[2], self.row[6], self.row[-1]))
                 self.exp.data.loc[len(self.exp.data)] = self.row
                 self.exp.data.to_csv(basedir + "/files/" + str(self.exp.key) + "_" + str(date.today()) + '.csv', index=False)
-                print("saved:")
-                print(self.row)
                 if self.exp.seqs.iloc[self.exp.key, -1] == self.trial[0]:
                     print("building post-trials...")
                     self.build_post_trial(self.exp)
@@ -199,9 +194,27 @@ class Trial(QStackedWidget):
     def build_post_trial(self, exp):
         trial = []
         case = []
+        case, trial = self.pick_trials_for_postrials(case, exp, trial)
         self.widget.wait = Wait()
+        code = self.generate_code(case)
+        self.widget.wait.label.setText(code)
         self.widget.addWidget(self.widget.wait)
         self.widget.wait.pushButton.clicked.connect(self.next)
+        if len(case) > 0:
+            if len(trial) != 0:
+                for t, c in zip(trial, case):
+                    print("Case:" + str(c) + " Trial: " + str(t[0]) )
+                    self.widget.addWidget(Trial(exp, t, self.widget, postTrial=True, case=c))
+        self.widget.open_goal = PostTrial.OpenQuestionGoal()
+        self.widget.addWidget(self.widget.open_goal)
+        self.widget.open_end = PostTrial.OpenQuestion()
+        self.widget.addWidget(self.widget.open_end)
+        self.widget.end = End()
+        self.widget.addWidget(self.widget.end)
+        self.widget.open_goal.weiterBtn.clicked.connect(self.next)
+        self.widget.open_end.weiterBtn.clicked.connect(self.next)
+
+    def pick_trials_for_postrials(self, case, exp, trial):
         if exp.group == "CAA":
             case1 = exp.data[exp.data["case"] == 1]
             if len(case1) > 0:
@@ -220,47 +233,24 @@ class Trial(QStackedWidget):
                 seq = case.iloc[0, 0]
                 trial = [exp.trials[exp.trials["seq"] == seq].iloc[0, :]]
                 case = [1]
-        if len(case) > 0:
-            if len(trial) != 0:
-                for t, c in zip(trial, case):
-                    print("Case:" + str(c) + " Trial: " + str(t[0]) )
-                    self.widget.addWidget(Trial(exp, t, self.widget, postTrial=True, case=c))
-        self.widget.open_goal = PostTrial.OpenQuestionGoal()
-        self.widget.addWidget(self.widget.open_goal)
-        self.widget.open_end = PostTrial.OpenQuestion()
-        self.widget.addWidget(self.widget.open_end)
-        self.widget.end = End()
-        self.widget.addWidget(self.widget.end)
-        self.widget.open_goal.weiterBtn.clicked.connect(lambda: self.end(1))
-        self.widget.open_goal.plainTextEdit.textChanged.connect(
-            lambda: self.handle_text_edit(self.widget.open_goal.plainTextEdit))
-        self.widget.open_end.weiterBtn.clicked.connect(lambda: self.end(2))
-        self.widget.open_end.plainTextEdit.textChanged.connect(
-            lambda: self.handle_text_edit(self.widget.open_end.plainTextEdit))
+        return case, trial
 
-    def handle_text_edit(self, text_edit):
-        text = text_edit.toPlainText()
-        if (text[:6] == "Tippen"):
-            self.char = ""
-        if text != "" and bytes(text[-1], 'utf-8') == b'\x08':
-            self.char = self.char[:-1]
-            text_edit.setPlainText(self.char)
-            text_edit.moveCursor(QTextCursor.End)
-        if len(text) > 1 and len(text) - len(self.char) > 1:
-            if text[-2] == text[-1]:
-                self.char = self.char + text[-1]
-                text_edit.setPlainText(self.char)
-                text_edit.moveCursor(QTextCursor.End)
+    def generate_code(self, cases):
+        code = self.exp.group
+        if len(cases) == 0:
+            code += "_00"
+        elif len(cases) == 2:
+            code += "_12"
+        elif len(cases) == 1:
+            if self.exp.group=="DA":
+                code += "_1"
+            elif self.exp.group=="CAA":
+                if cases[0] == 1:
+                    code += "_10"
+                elif cases[0] == 2:
+                    code += "_11"
+        return code
 
-    def end(self, case):
-        self.next()
-        if case == 1:
-            openq = self.widget.open_goal.plainTextEdit.toPlainText()
-        else:
-            openq = self.widget.open_end.plainTextEdit.toPlainText()
-        with open(basedir + '/files/' + str(self.exp.key) + "_openquestion_" + str(case) + "_" +
-                  str(date.today()) + '.txt', 'w+') as f:
-            f.write(openq)
 
     def again(self):
         self.row = []
@@ -285,13 +275,6 @@ class Trial(QStackedWidget):
                 return 1
             else:
                 return 0
-
-    def save_text(self):
-        self.widget.setCurrentIndex(self.widget.currentIndex()+1)
-        openq = self.textEdit.plainTextEdit.toPlainText()
-        with open(basedir + '/files/' + str(self.exp.key) +
-                                       "_case_" + str(self.case) + "_" + str(date.today()) + '.txt', 'w+') as f:
-            f.write(openq)
 
     def next(self):
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)

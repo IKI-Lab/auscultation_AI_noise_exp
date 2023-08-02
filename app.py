@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
 
 
     def initExp(self):
-        key = self.get_key.spinBox.value()
+        key = int(str(self.get_key.comboBox.currentText()))
         self.exp.key = key
         self.exp.group = self.exp.set_group(key)
         self.exp.trials_iter = self.exp.get_order()
@@ -101,14 +101,7 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == '__main__':
-    print(QtCore.Qt.Key_Space)
     app = QApplication([])
     window = MainWindow()
     window.showFullScreen()
     app.exec_()
-
-
-
-
-# test if reaction time is correct
-# toDo post-trial widget & open questions
