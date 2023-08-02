@@ -198,6 +198,7 @@ class Trial(QStackedWidget):
         self.widget.wait = Wait()
         code = self.generate_code(case)
         self.widget.wait.label.setText(code)
+        self.widget.wait.label.setStyleSheet("color:black;")
         self.widget.addWidget(self.widget.wait)
         self.widget.wait.pushButton.clicked.connect(self.next)
         if len(case) > 0:
