@@ -24,5 +24,5 @@ class KeyDialog(QDialog):
         super(KeyDialog, self).__init__()
         uic.loadUi(os.path.join(basedir,'forms/key.ui'), self)
         self.enterLabel.setStyleSheet("color:black;")
-        self.spinBox.setStyleSheet("color:black;")
+        self.comboBox.setStyleSheet("color:black;")
 
