@@ -34,7 +34,7 @@
    <widget class="QPushButton" name="weiterBtn">
     <property name="geometry">
      <rect>
-      <x>1130</x>
+      <x>1140</x>
       <y>760</y>
       <width>231</width>
       <height>81</height>
