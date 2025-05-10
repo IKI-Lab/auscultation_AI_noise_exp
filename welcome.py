@@ -8,21 +8,26 @@ basedir = os.path.dirname(__file__)
 
 
 class Welcome(QWidget):
+    """Welcome screen for the experiment."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi(os.path.join(basedir,'forms/welcome.ui'), self)
+        uic.loadUi(os.path.join(basedir, "forms/welcome.ui"), self)
         self.textBrowser.setStyleSheet("color:black;")
-        self.weiterBtn.setStyleSheet("background-color: blue; font: bold 30px; color: white;")
+        self.weiterBtn.setStyleSheet(
+            "background-color: blue; font: bold 30px; color: white;"
+        )
+
 
 class Start(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi(os.path.join(basedir,'forms/start.ui'), self)
+        uic.loadUi(os.path.join(basedir, "forms/start.ui"), self)
+
 
 class KeyDialog(QDialog):
     def __init__(self):
         super(KeyDialog, self).__init__()
-        uic.loadUi(os.path.join(basedir,'forms/key.ui'), self)
+        uic.loadUi(os.path.join(basedir, "forms/key.ui"), self)
         self.enterLabel.setStyleSheet("color:black;")
         self.comboBox.setStyleSheet("color:black;")
-

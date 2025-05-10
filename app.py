@@ -1,11 +1,9 @@
 import os
-import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
-from PyQt5 import uic, QtWidgets, QtCore
-from datetime import date
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import uic, QtWidgets
 
-import PostTrial
+
 from experiment import Experiment
 import trial
 from welcome import Welcome, KeyDialog, Start
@@ -13,11 +11,14 @@ from instructions1 import Instructions1, GroupInstructions, TestStart, postExamp
 
 basedir = os.path.dirname(__file__)
 
+
 class MainWindow(QMainWindow):
+    """Main Window of the application."""
+
     def __init__(self):
         super().__init__()
         self.exp = Experiment()
-        uic.loadUi(os.path.join(basedir,'forms/main_window.ui'), self)
+        uic.loadUi(os.path.join(basedir, "forms/main_window.ui"), self)
         self.start = Start()
         self.stackedWidget.addWidget(self.start)
         self.stackedWidget.setCurrentIndex(2)
@@ -41,7 +42,6 @@ class MainWindow(QMainWindow):
         self.postexample = postExample()
         self.stackedWidget.addWidget(self.postexample)
 
-
         self.start.pushButton_2.clicked.connect(self.openDialog)
         self.welcome.weiterBtn.clicked.connect(self.next)
         self.instruct.weiterBtn.clicked.connect(self.next)
@@ -51,8 +51,8 @@ class MainWindow(QMainWindow):
         self.postexample.weiterBtn.clicked.connect(self.next)
         self.test_start.weiterBtn.clicked.connect(self.next)
 
-
     def openDialog(self):
+        """Open the key dialog to select the key for the experiment."""
         self.get_key = KeyDialog()
         self.get_key.show()
         self.get_key.pushButton.clicked.connect(self.get_key.accept)
@@ -60,8 +60,8 @@ class MainWindow(QMainWindow):
             self.stackedWidget.setCurrentIndex(self.current() + 1)
         self.initExp()
 
-
     def initExp(self):
+        """Initialize the experiment with the selected key."""
         key = int(str(self.get_key.comboBox.currentText()))
         self.exp.key = key
         self.exp.group = self.exp.set_group(key)
@@ -71,24 +71,32 @@ class MainWindow(QMainWindow):
             self.buildTrial(self.exp.trials.iloc[self.exp.trials_iter[i], :])
         self.init = True
 
-
     def display_instruct_group(self):
+        """Display the group instructions based on the selected group."""
         if self.exp.group == "CAA":
-            self.instruct_group.textBrowser.append("<p style=\" font-size:24pt; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; color: black; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt font-family:\'Helvetica Neue\'; font-size:18pt;\"><br>Außerdem wird Ihnen die Klassifikation der Auskultation durch das System präsentiert. <br> Diese ist entweder <span style=\" font-weight: bold; color: red;\" > auffällig </span> oder <span style=\"font-weight: bold; color: green ;\" > unauffällig </span>. <br/></span></p> ")
+            self.instruct_group.textBrowser.append(
+                '<p style=" font-size:24pt; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; color: black; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:24pt font-family:\'Helvetica Neue\'; font-size:18pt;"><br>Außerdem wird Ihnen die Klassifikation der Auskultation durch das System präsentiert. <br> Diese ist entweder <span style=" font-weight: bold; color: red;" > auffällig </span> oder <span style="font-weight: bold; color: green ;" > unauffällig </span>. <br/></span></p> '
+            )
             self.instruct_group.textBrowser.setStyleSheet("font: 50px; color:black;")
         self.stackedWidget.setCurrentIndex(self.current() + 1)
 
-
     def buildTestTrial(self):
+        """Build the test trial for the experiment."""
         trial_test = self.exp.trials.iloc[-1, :]
-        self.trialStacked = trial.Trial(self.exp, trial_test, self.stackedWidget, test=True)
+        self.trialStacked = trial.Trial(
+            self.exp, trial_test, self.stackedWidget, test=True
+        )
         self.stackedWidget.addWidget(self.trialStacked)
 
     def buildTrial(self, trial_e):
-        self.trialStacked = trial.Trial(self.exp, trial_e, self.stackedWidget, test=False)
+        """Build a trial for the experiment."""
+        self.trialStacked = trial.Trial(
+            self.exp, trial_e, self.stackedWidget, test=False
+        )
         self.stackedWidget.addWidget(self.trialStacked)
 
     def start_post_trial(self):
+        """Start the post trial for the experiment."""
         self.stackedWidget.setCurrentIndex(self.current() + 1)
 
     def get_init(self):
@@ -96,11 +104,12 @@ class MainWindow(QMainWindow):
 
     def current(self):
         return self.stackedWidget.currentIndex()
+
     def next(self):
         self.stackedWidget.setCurrentIndex(self.current() + 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
     window.showFullScreen()
