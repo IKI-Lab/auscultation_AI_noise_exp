@@ -1,6 +1,6 @@
-# Not a Matter of Trust: Increasing Complexity Drives Physician’s Reliance on Artificial Intelligence
+# Physicians Trust AI Less in Complex Cases, but Rely on It Just as Much
 
-This project is designed to conduct experiments for the paper **Not a Matter of Trust: Increasing Complexity Drives Physician’s Reliance on Artificial Intelligence**. It uses PyQt5 for the graphical user interface (GUI) to guide participants through the experiment.
+This project is designed to conduct experiments for the paper **Physicians Trust AI Less in Complex Cases, but Rely on It Just as Much**. It uses PyQt5 for the graphical user interface (GUI) to guide participants through the experiment.
 
 ## Project Structure
 
