@@ -2,6 +2,11 @@
 
 This project is designed to conduct experiments for the paper **Physicians Trust AI Less in Complex Cases, but Rely on It Just as Much**. It uses PyQt5 for the graphical user interface (GUI) to guide participants through the experiment.
 
+## License
+
+This project is licensed under a [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/).  
+You are free to use, share, and modify the content, as long as you **attribute the authors**.
+
 ## Project Structure
 
 The project is organized as follows:\
