@@ -8,23 +8,23 @@ This project is licensed under a [CC BY 4.0 License](https://creativecommons.org
 You are free to use, share, and modify the content, as long as you **attribute the authors**.
 
 ## Project Structure
-
-The project is organized as follows:\
-├── app.py # Main entry point for the application\
-├── experiment.py # Defines the Experiment class and trial dataset generation\
-├── trial.py # Handles trial logic and GUI components\
-├── PostTrial.py # Manages post-trial questions and forms\
-├── instructions1.py # Contains instructional screens for participants\
-├── welcome.py # Welcome screen and initial dialogs\
-├── forms/ # Directory containing .ui files for GUI forms\
-├── stimuli/ # Directory containing stimuli (audio, video, etc.)\
-├── matrix16.csv # Full matrix for trial sequences\
-├── seq_matrix.csv # Sequence matrix for trials\
-├── trials.csv # Main trial data\
-├── trials_test.csv # Test trial data\
-├── requirements.txt # Python dependencies\
+```bash
+The project is organized as follows:
+├── app.py # Main entry point for the application
+├── experiment.py # Defines the Experiment class and trial dataset generation
+├── trial.py # Handles trial logic and GUI components
+├── PostTrial.py # Manages post-trial questions and forms
+├── instructions1.py # Contains instructional screens for participants
+├── welcome.py # Welcome screen and initial dialogs
+├── forms/ # Directory containing .ui files for GUI forms
+├── stimuli/ # Directory containing stimuli (audio, video, etc.)
+├── matrix16.csv # Full matrix for trial sequences
+├── seq_matrix.csv # Sequence matrix for trials
+├── trials.csv # Main trial data
+├── trials_test.csv # Test trial data
+├── requirements.txt # Python dependencies
 └── README.md
-
+```
 ### Key Files
 
 - **`app.py`**: Initializes the application and manages the main window and navigation between screens.
